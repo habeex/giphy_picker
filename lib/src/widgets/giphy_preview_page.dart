@@ -5,11 +5,17 @@ import 'package:giphy_picker/src/widgets/giphy_image.dart';
 /// Presents a Giphy preview image.
 class GiphyPreviewPage extends StatelessWidget {
   final GiphyGif gif;
-  final AppBar previewAppBar;
+  final Widget title;
+  final IconThemeData actionsIconTheme;
+  final IconThemeData iconTheme;
+  final Brightness brightness;
+
+
   final ValueChanged<GiphyGif> onSelected;
 
   const GiphyPreviewPage(
-      {@required this.gif, @required this.previewAppBar, @required this.onSelected,}
+      {@required this.gif, @required this.title, @required this.onSelected,
+        this.actionsIconTheme, this.iconTheme, this.brightness}
       );
 
   @override
@@ -17,7 +23,14 @@ class GiphyPreviewPage extends StatelessWidget {
     final media = MediaQuery.of(context);
 
     return Scaffold(
-        appBar: previewAppBar,
+        appBar: AppBar(
+            title: title,
+            actionsIconTheme: actionsIconTheme,
+            iconTheme: iconTheme,
+            brightness: brightness,
+            actions: <Widget>[
+          IconButton(icon: Icon(Icons.check), onPressed: () => onSelected(gif))
+        ]),
         body: SafeArea(
             child: Center(
                 child: GiphyImage.original(

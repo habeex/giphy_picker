@@ -7,8 +7,12 @@ import 'package:giphy_picker/src/widgets/giphy_thumbnail_grid.dart';
 
 /// Provides the UI for searching Giphy gif images.
 class GiphySearchView extends StatefulWidget {
-  AppBar previewAppBar;
-  GiphySearchView({@required this.previewAppBar});
+  final Widget title;
+  final IconThemeData actionsIconTheme;
+  final IconThemeData iconTheme;
+  final Brightness brightness;
+
+  GiphySearchView({@required this.title, this.actionsIconTheme, this.iconTheme, this.brightness,});
 
   @override
   _GiphySearchViewState createState() => _GiphySearchViewState();
@@ -61,7 +65,10 @@ class _GiphySearchViewState extends State<GiphySearchView> {
                                   key: Key('${snapshot.data.hashCode}'),
                                   repo: snapshot.data,
                                   scrollController: _scrollController,
-                                previewAppBar: widget.previewAppBar,
+                                title: widget.title,
+                                actionsIconTheme:widget. actionsIconTheme,
+                                iconTheme: widget.iconTheme,
+                                brightness: widget.brightness,
                               ),
                               onRefresh: () =>
                                   _search(giphy, term: _textController.text)),

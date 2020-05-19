@@ -41,7 +41,18 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () async {
               // request your Giphy API key at https://developers.giphy.com/
               final gif = await GiphyPicker.pickGif(
-                  context: context, apiKey: '[YOUR GIPHY APIKEY]');
+                  context: context, apiKey: '[YOUR GIPHY APIKEY]',
+                appBar: AppBar(
+                  title: Text(_gif?.title ?? 'Giphy Picker Demo'),
+                ),
+                previewAppBar: AppBar(
+                    actions: <Widget>[
+                      IconButton(icon: Icon(Icons.check), onPressed: () {
+
+                      })
+                    ]
+                )
+              );
 
               if (gif != null) {
                 setState(() => _gif = gif);
