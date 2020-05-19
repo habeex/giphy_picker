@@ -16,6 +16,8 @@ class GiphyPicker {
   static Future<GiphyGif> pickGif({
     @required BuildContext context,
     @required String apiKey,
+    @required AppBar appBar,
+    @required AppBar previewAppBar,
     String rating = GiphyRating.g,
     String lang = GiphyLanguage.english,
     Widget title,
@@ -29,7 +31,7 @@ class GiphyPicker {
         context,
         MaterialPageRoute(
             builder: (BuildContext context) => GiphyContext(
-                  child: GiphySearchPage(),
+                  child: GiphySearchPage(appBar: appBar, previewAppBar: previewAppBar,),
                   apiKey: apiKey,
                   rating: rating,
                   language: lang,

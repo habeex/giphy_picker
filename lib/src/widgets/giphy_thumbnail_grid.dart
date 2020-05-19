@@ -8,9 +8,10 @@ import 'package:giphy_picker/src/widgets/giphy_thumbnail.dart';
 class GiphyThumbnailGrid extends StatelessWidget {
   final GiphyRepository repo;
   final ScrollController scrollController;
+  final AppBar previewAppBar;
 
   const GiphyThumbnailGrid(
-      {Key key, @required this.repo, this.scrollController})
+      {Key key, @required this.repo, @required this.previewAppBar, this.scrollController})
       : super(key: key);
 
   @override
@@ -32,6 +33,7 @@ class GiphyThumbnailGrid extends StatelessWidget {
                     builder: (BuildContext context) => GiphyPreviewPage(
                       gif: gif,
                       onSelected: giphy.onSelected,
+                        previewAppBar: previewAppBar,
                     ),
                   ),
                 );
