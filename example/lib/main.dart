@@ -45,13 +45,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 appBar: AppBar(
                   title: Text(_gif?.title ?? 'Giphy Picker Demo'),
                 ),
-                previewAppBar: AppBar(
-                    actions: <Widget>[
-                      IconButton(icon: Icon(Icons.check), onPressed: () {
-
-                      })
-                    ]
-                )
               );
 
               if (gif != null) {
