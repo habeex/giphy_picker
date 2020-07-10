@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:extended_text_field/extended_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:giphy_picker/src/model/giphy_repository.dart';
 import 'package:giphy_picker/src/widgets/giphy_context.dart';
@@ -43,11 +44,7 @@ class _GiphySearchViewState extends State<GiphySearchView> {
   Widget build(BuildContext context) {
     final giphy = GiphyContext.of(context);
     var mediaQuery = MediaQuery.of(context).size;
-    return ConstrainedBox(
-      constraints: new BoxConstraints(
-        minHeight: 400,
-        maxHeight: 500,
-      ),
+    return Flexible(
       child: Column(children: <Widget>[
         Expanded(
             child: ClipRRect(
@@ -89,7 +86,7 @@ class _GiphySearchViewState extends State<GiphySearchView> {
             )),
         Container(
           height: null,
-          padding: EdgeInsets.only(top: 3, left: 8, right: 8),
+          padding: EdgeInsets.only(top: 3, left: 8, right: 8, bottom: MediaQuery.of(context).viewInsets.bottom),
           color: Colors.white,
           child: Column(
             children: [
@@ -108,31 +105,26 @@ class _GiphySearchViewState extends State<GiphySearchView> {
                     ),
                   ),
                   Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(top: 4, bottom: 8, right: 8),
-                      padding: EdgeInsets.only(left: 16),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30.0),
-                        color: Color(0xFFF0F0F0),
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Stack(
-                              overflow: Overflow.visible,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 0,
-                                    right: 0,
-                                    bottom: 0,
-                                    top: 0,
-                                  ),
-                                  child: MediaQuery(
+                    child: Padding(
+                      padding:  EdgeInsets.all(8.0),
+                      child: Container(
+                        margin: EdgeInsets.only(top: 4, bottom: 8, right: 8),
+                        padding: EdgeInsets.only(left: 16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30.0),
+                          color: Color(0xFFF0F0F0),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Stack(
+                                overflow: Overflow.visible,
+                                children: <Widget>[
+                                  MediaQuery(
                                     data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
                                     child: Padding(
                                       padding: const EdgeInsets.only(right: 8.0),
-                                      child: TextField(
+                                      child: ExtendedTextField(
                                         controller: _textController,
                                         decoration: InputDecoration.collapsed(
                                             hintText: giphy.searchText,
@@ -142,11 +134,11 @@ class _GiphySearchViewState extends State<GiphySearchView> {
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

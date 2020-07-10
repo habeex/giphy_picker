@@ -28,6 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset : false,
         appBar: AppBar(
           title: Text(_gif?.title ?? 'Giphy Picker'),
         ),
@@ -46,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () async {
               // request your Giphy API key at https://developers.giphy.com/
               final gif = await GiphyPicker.pickGif(
-                  context: context, apiKey: '[YOUR GIPHY APIKEY]',
+                  context: context, apiKey: 'CjRDohlFhcVYcD0ic023c8aPVkybJfFS',
                 appBar: AppBar(
                   title: Text(_gif?.title ?? 'Giphy Picker Demo'),
                 ),
