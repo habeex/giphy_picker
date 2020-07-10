@@ -23,14 +23,18 @@ class GiphyPreviewPage extends StatelessWidget {
     final media = MediaQuery.of(context);
 
     return Scaffold(
+      backgroundColor: Colors.black,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => onSelected(gif),
+        child: Icon(Icons.send),
+      ),
         appBar: AppBar(
-            title: title,
+            title: Text("Post gif"),
             actionsIconTheme: actionsIconTheme,
             iconTheme: iconTheme,
             brightness: brightness,
-            actions: <Widget>[
-          IconButton(icon: Icon(Icons.check), onPressed: () => onSelected(gif))
-        ]),
+          backgroundColor: Colors.black,
+          ),
         body: SafeArea(
             child: Center(
                 child: GiphyImage.original(

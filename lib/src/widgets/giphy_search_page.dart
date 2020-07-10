@@ -13,14 +13,11 @@ class GiphySearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: appBar,
-        body: SafeArea(
-            child: GiphySearchView(
-          title: title,
-          actionsIconTheme: actionsIconTheme,
-          iconTheme: iconTheme,
-          brightness: brightness,
-        ), bottom: false));
+    return GiphySearchView(
+      title: title,
+      actionsIconTheme: actionsIconTheme,
+      iconTheme: iconTheme,
+      brightness: brightness,
+    );
   }
 }

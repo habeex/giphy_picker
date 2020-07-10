@@ -21,7 +21,7 @@ class GiphyContext extends InheritedWidget {
     this.onSelected,
     this.onError,
     this.showPreviewPage = true,
-    this.searchText = 'Search Giphy',
+    this.searchText = 'Search gifs',
   }) : super(key: key, child: child);
 
   void select(GiphyGif gif) {

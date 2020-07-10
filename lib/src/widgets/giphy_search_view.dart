@@ -42,52 +42,121 @@ class _GiphySearchViewState extends State<GiphySearchView> {
   @override
   Widget build(BuildContext context) {
     final giphy = GiphyContext.of(context);
-
-    return Column(children: <Widget>[
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: TextField(
-          controller: _textController,
-          decoration: InputDecoration(hintText: giphy.searchText),
-          onChanged: (value) => _delayedSearch(giphy, value),
-        ),
+    var mediaQuery = MediaQuery.of(context).size;
+    return ConstrainedBox(
+      constraints: new BoxConstraints(
+        minHeight: 400,
+        maxHeight: 500,
       ),
-      Expanded(
-          child: StreamBuilder(
-              stream: _repoController.stream,
-              builder: (BuildContext context,
-                  AsyncSnapshot<GiphyRepository> snapshot) {
-                if (snapshot.hasData) {
-                  return snapshot.data.totalCount > 0
-                      ? NotificationListener(
-                          child: RefreshIndicator(
-                              child: GiphyThumbnailGrid(
-                                  key: Key('${snapshot.data.hashCode}'),
-                                  repo: snapshot.data,
-                                  scrollController: _scrollController,
-                                title: widget.title,
-                                actionsIconTheme:widget. actionsIconTheme,
-                                iconTheme: widget.iconTheme,
-                                brightness: widget.brightness,
-                              ),
-                              onRefresh: () =>
-                                  _search(giphy, term: _textController.text)),
-                          onNotification: (n) {
-                            // hide keyboard when scrolling
-                            if (n is UserScrollNotification) {
-                              FocusScope.of(context).requestFocus(FocusNode());
-                              return true;
-                            }
-                            return false;
-                          },
-                        )
-                      : Center(child: Text('No results'));
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('An error occurred'));
-                }
-                return Center(child: CircularProgressIndicator());
-              }))
-    ]);
+      child: Column(children: <Widget>[
+        Expanded(
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              child: StreamBuilder(
+                  stream: _repoController.stream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<GiphyRepository> snapshot) {
+                    if (snapshot.hasData) {
+                      return snapshot.data.totalCount > 0
+                          ? NotificationListener(
+                              child: RefreshIndicator(
+                                  child: GiphyThumbnailGrid(
+                                      key: Key('${snapshot.data.hashCode}'),
+                                      repo: snapshot.data,
+                                      scrollController: _scrollController,
+                                    title: widget.title,
+                                    actionsIconTheme:widget. actionsIconTheme,
+                                    iconTheme: widget.iconTheme,
+                                    brightness: widget.brightness,
+                                  ),
+                                  onRefresh: () =>
+                                      _search(giphy, term: _textController.text)),
+                              onNotification: (n) {
+                                // hide keyboard when scrolling
+                                if (n is UserScrollNotification) {
+                                  FocusScope.of(context).requestFocus(FocusNode());
+                                  return true;
+                                }
+                                return false;
+                              },
+                            )
+                          : Center(child: Text('No results'));
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('An error occurred'));
+                    }
+                    return Center(child: CircularProgressIndicator());
+                  }),
+            )),
+        Container(
+          height: null,
+          padding: EdgeInsets.only(top: 3, left: 8, right: 8),
+          color: Colors.white,
+          child: Column(
+            children: [
+              Row(
+                children: <Widget>[
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(left: 8, right: 8),
+                      child: Icon(
+                        Icons.close,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(top: 4, bottom: 8, right: 8),
+                      padding: EdgeInsets.only(left: 16),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.0),
+                        color: Color(0xFFF0F0F0),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Stack(
+                              overflow: Overflow.visible,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    top: 0,
+                                  ),
+                                  child: MediaQuery(
+                                    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 8.0),
+                                      child: TextField(
+                                        controller: _textController,
+                                        decoration: InputDecoration.collapsed(
+                                            hintText: giphy.searchText,
+                                          hintStyle: TextStyle(fontSize: 16)
+                                        ),
+                                        onChanged: (value) => _delayedSearch(giphy, value),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        )
+      ]),
+    );
   }
 
   void _delayedSearch(GiphyContext giphy, String term) => Future.delayed(

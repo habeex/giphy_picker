@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:giphy_client/giphy_client.dart';
 import 'package:giphy_picker/src/widgets/giphy_context.dart';
 import 'package:giphy_picker/src/widgets/giphy_search_page.dart';
+import 'package:giphy_picker/src/widgets/media_bottom_sheet.dart';
 
 export 'package:giphy_picker/src/widgets/giphy_image.dart';
 
@@ -25,40 +26,71 @@ class GiphyPicker {
     String lang = GiphyLanguage.english,
     ErrorListener onError,
     bool showPreviewPage = true,
-    String searchText = 'Search GIPHY',
+    String searchText = 'Search gifs',
   }) async {
     GiphyGif result;
 
-    await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => GiphyContext(
-                  child: GiphySearchPage(
-                    appBar: appBar,
-                    title: title,
-                    actionsIconTheme: actionsIconTheme,
-                    iconTheme: iconTheme,
-                    brightness: brightness,
-                  ),
-                  apiKey: apiKey,
-                  rating: rating,
-                  language: lang,
-                  onError:
-                      onError ?? (error) => _showErrorDialog(context, error),
-                  onSelected: (gif) {
-                    result = gif;
+    PikerBottomSheet.show(context, animationDuraion: Duration(milliseconds: 600), tiles: [
+      GiphyContext(
+        child: GiphySearchPage(
+          appBar: appBar,
+          title: title,
+          actionsIconTheme: actionsIconTheme,
+          iconTheme: iconTheme,
+          brightness: brightness,
+        ),
+        apiKey: apiKey,
+        rating: rating,
+        language: lang,
+        onError:
+        onError ?? (error) => _showErrorDialog(context, error),
+        onSelected: (gif) {
+          result = gif;
 
-                    // pop preview page if necessary
-                    if (showPreviewPage) {
-                      Navigator.pop(context);
-                    }
-                    // pop giphy_picker
-                    Navigator.pop(context);
-                  },
-                  showPreviewPage: showPreviewPage,
-                  searchText: searchText,
-                ),
-            fullscreenDialog: true));
+          // pop preview page if necessary
+          if (showPreviewPage) {
+            Navigator.pop(context);
+          }
+          // pop giphy_picker
+          Navigator.pop(context);
+        },
+        showPreviewPage: showPreviewPage,
+        searchText: searchText,
+      )
+    ]).then((value) {
+
+    });
+
+//    await Navigator.push(
+//        context,
+//        MaterialPageRoute(
+//            builder: (BuildContext context) => GiphyContext(
+//                  child: GiphySearchPage(
+//                    appBar: appBar,
+//                    title: title,
+//                    actionsIconTheme: actionsIconTheme,
+//                    iconTheme: iconTheme,
+//                    brightness: brightness,
+//                  ),
+//                  apiKey: apiKey,
+//                  rating: rating,
+//                  language: lang,
+//                  onError:
+//                      onError ?? (error) => _showErrorDialog(context, error),
+//                  onSelected: (gif) {
+//                    result = gif;
+//
+//                    // pop preview page if necessary
+//                    if (showPreviewPage) {
+//                      Navigator.pop(context);
+//                    }
+//                    // pop giphy_picker
+//                    Navigator.pop(context);
+//                  },
+//                  showPreviewPage: showPreviewPage,
+//                  searchText: searchText,
+//                ),
+//            fullscreenDialog: true));
 
     return result;
   }
