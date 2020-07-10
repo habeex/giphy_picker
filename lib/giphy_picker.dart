@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:giphy_client/giphy_client.dart';
 import 'package:giphy_picker/src/widgets/giphy_context.dart';
 import 'package:giphy_picker/src/widgets/giphy_search_page.dart';
-import 'package:giphy_picker/src/widgets/media_bottom_sheet.dart';
 
 export 'package:giphy_picker/src/widgets/giphy_image.dart';
 
@@ -30,36 +29,70 @@ class GiphyPicker {
   }) async {
     GiphyGif result;
 
-    PikerBottomSheet.show(context, animationDuraion: Duration(milliseconds: 600), tiles: [
-      GiphyContext(
-        child: GiphySearchPage(
-          appBar: appBar,
-          title: title,
-          actionsIconTheme: actionsIconTheme,
-          iconTheme: iconTheme,
-          brightness: brightness,
-        ),
-        apiKey: apiKey,
-        rating: rating,
-        language: lang,
-        onError:
-        onError ?? (error) => _showErrorDialog(context, error),
-        onSelected: (gif) {
-          result = gif;
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
+        context: context,
+        isScrollControlled: true,
+        builder: (context) => Container(
+          height: MediaQuery.of(context).size.height * 0.70,
+          child: GiphyContext(
+            child: GiphySearchPage(
+              appBar: appBar,
+              title: title,
+              actionsIconTheme: actionsIconTheme,
+              iconTheme: iconTheme,
+              brightness: brightness,
+            ),
+            apiKey: apiKey,
+            rating: rating,
+            language: lang,
+            onError:
+            onError ?? (error) => _showErrorDialog(context, error),
+            onSelected: (gif) {
+              result = gif;
 
-          // pop preview page if necessary
-          if (showPreviewPage) {
-            Navigator.pop(context);
-          }
-          // pop giphy_picker
-          Navigator.pop(context);
-        },
-        showPreviewPage: showPreviewPage,
-        searchText: searchText,
-      )
-    ]).then((value) {
+              // pop preview page if necessary
+              if (showPreviewPage) {
+                Navigator.pop(context);
+              }
+              // pop giphy_picker
+              Navigator.pop(context);
+            },
+            showPreviewPage: showPreviewPage,
+            searchText: searchText,
+          ),
+        ));
 
-    });
+//    PikerBottomSheet.show(context, animationDuraion: Duration(milliseconds: 600), tiles: [
+//      GiphyContext(
+//        child: GiphySearchPage(
+//          appBar: appBar,
+//          title: title,
+//          actionsIconTheme: actionsIconTheme,
+//          iconTheme: iconTheme,
+//          brightness: brightness,
+//        ),
+//        apiKey: apiKey,
+//        rating: rating,
+//        language: lang,
+//        onError:
+//        onError ?? (error) => _showErrorDialog(context, error),
+//        onSelected: (gif) {
+//          result = gif;
+//
+//          // pop preview page if necessary
+//          if (showPreviewPage) {
+//            Navigator.pop(context);
+//          }
+//          // pop giphy_picker
+//          Navigator.pop(context);
+//        },
+//        showPreviewPage: showPreviewPage,
+//        searchText: searchText,
+//      )
+//    ]).then((value) {
+//
+//    });
 
 //    await Navigator.push(
 //        context,
