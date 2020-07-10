@@ -29,7 +29,7 @@ class GiphyPreviewPage extends StatelessWidget {
         child: Icon(Icons.send),
       ),
         appBar: AppBar(
-            title: Text("Post GIF"),
+            title: Center(child: Text("Post GIF", style: TextStyle(color: Colors.white),)),
             actionsIconTheme: actionsIconTheme,
             iconTheme: iconTheme,
             brightness: brightness,

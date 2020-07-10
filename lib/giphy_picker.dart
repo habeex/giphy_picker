@@ -29,38 +29,35 @@ class GiphyPicker {
   }) async {
     GiphyGif result;
 
-    showModalBottomSheet(
+    await showModalBottomSheet(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
         context: context,
         isScrollControlled: true,
-        builder: (context) => Container(
-          height: MediaQuery.of(context).size.height * 0.70,
-          child: GiphyContext(
-            child: GiphySearchPage(
-              appBar: appBar,
-              title: title,
-              actionsIconTheme: actionsIconTheme,
-              iconTheme: iconTheme,
-              brightness: brightness,
-            ),
-            apiKey: apiKey,
-            rating: rating,
-            language: lang,
-            onError:
-            onError ?? (error) => _showErrorDialog(context, error),
-            onSelected: (gif) {
-              result = gif;
-
-              // pop preview page if necessary
-              if (showPreviewPage) {
-                Navigator.pop(context);
-              }
-              // pop giphy_picker
-              Navigator.pop(context);
-            },
-            showPreviewPage: showPreviewPage,
-            searchText: searchText,
+        builder: (context) => GiphyContext(
+          child: GiphySearchPage(
+            appBar: appBar,
+            title: title,
+            actionsIconTheme: actionsIconTheme,
+            iconTheme: iconTheme,
+            brightness: brightness,
           ),
+          apiKey: apiKey,
+          rating: rating,
+          language: lang,
+          onError:
+          onError ?? (error) => _showErrorDialog(context, error),
+          onSelected: (gif) {
+            result = gif;
+
+            // pop preview page if necessary
+            if (showPreviewPage) {
+              Navigator.pop(context);
+            }
+            // pop giphy_picker
+            Navigator.pop(context);
+          },
+          showPreviewPage: showPreviewPage,
+          searchText: searchText,
         ));
     return result;
   }
