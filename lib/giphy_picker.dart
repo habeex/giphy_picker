@@ -62,69 +62,6 @@ class GiphyPicker {
             searchText: searchText,
           ),
         ));
-
-//    PikerBottomSheet.show(context, animationDuraion: Duration(milliseconds: 600), tiles: [
-//      GiphyContext(
-//        child: GiphySearchPage(
-//          appBar: appBar,
-//          title: title,
-//          actionsIconTheme: actionsIconTheme,
-//          iconTheme: iconTheme,
-//          brightness: brightness,
-//        ),
-//        apiKey: apiKey,
-//        rating: rating,
-//        language: lang,
-//        onError:
-//        onError ?? (error) => _showErrorDialog(context, error),
-//        onSelected: (gif) {
-//          result = gif;
-//
-//          // pop preview page if necessary
-//          if (showPreviewPage) {
-//            Navigator.pop(context);
-//          }
-//          // pop giphy_picker
-//          Navigator.pop(context);
-//        },
-//        showPreviewPage: showPreviewPage,
-//        searchText: searchText,
-//      )
-//    ]).then((value) {
-//
-//    });
-
-//    await Navigator.push(
-//        context,
-//        MaterialPageRoute(
-//            builder: (BuildContext context) => GiphyContext(
-//                  child: GiphySearchPage(
-//                    appBar: appBar,
-//                    title: title,
-//                    actionsIconTheme: actionsIconTheme,
-//                    iconTheme: iconTheme,
-//                    brightness: brightness,
-//                  ),
-//                  apiKey: apiKey,
-//                  rating: rating,
-//                  language: lang,
-//                  onError:
-//                      onError ?? (error) => _showErrorDialog(context, error),
-//                  onSelected: (gif) {
-//                    result = gif;
-//
-//                    // pop preview page if necessary
-//                    if (showPreviewPage) {
-//                      Navigator.pop(context);
-//                    }
-//                    // pop giphy_picker
-//                    Navigator.pop(context);
-//                  },
-//                  showPreviewPage: showPreviewPage,
-//                  searchText: searchText,
-//                ),
-//            fullscreenDialog: true));
-
     return result;
   }
 
