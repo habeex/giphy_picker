@@ -29,13 +29,18 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(_gif?.title ?? 'Giphy Picker Demo'),
+          title: Text(_gif?.title ?? 'Giphy Picker'),
         ),
         body: SafeArea(
-            child: Center(
-                child: _gif == null
-                    ? Text('Pick a gif..')
-                    : GiphyImage.original(gif: _gif))),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Center(
+                    child: _gif == null
+                        ? Text('Pick a gif..')
+                        : GiphyImage.original(gif: _gif)),
+              ],
+            )),
         floatingActionButton: FloatingActionButton(
             child: Icon(Icons.search),
             onPressed: () async {
@@ -50,6 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
               if (gif != null) {
                 setState(() => _gif = gif);
               }
-            }));
+            })
+    );
   }
 }
