@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:extended_text_field/extended_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:giphy_picker/src/model/giphy_repository.dart';
 import 'package:giphy_picker/src/widgets/giphy_context.dart';
@@ -44,7 +43,11 @@ class _GiphySearchViewState extends State<GiphySearchView> {
   Widget build(BuildContext context) {
     final giphy = GiphyContext.of(context);
     var mediaQuery = MediaQuery.of(context).size;
-    return Flexible(
+    return ConstrainedBox(
+      constraints: new BoxConstraints(
+        minHeight: 450,
+        maxHeight: 550,
+      ),
       child: Column(children: <Widget>[
         Expanded(
             child: ClipRRect(
@@ -56,27 +59,27 @@ class _GiphySearchViewState extends State<GiphySearchView> {
                     if (snapshot.hasData) {
                       return snapshot.data.totalCount > 0
                           ? NotificationListener(
-                              child: RefreshIndicator(
-                                  child: GiphyThumbnailGrid(
-                                      key: Key('${snapshot.data.hashCode}'),
-                                      repo: snapshot.data,
-                                      scrollController: _scrollController,
-                                    title: widget.title,
-                                    actionsIconTheme:widget. actionsIconTheme,
-                                    iconTheme: widget.iconTheme,
-                                    brightness: widget.brightness,
-                                  ),
-                                  onRefresh: () =>
-                                      _search(giphy, term: _textController.text)),
-                              onNotification: (n) {
-                                // hide keyboard when scrolling
-                                if (n is UserScrollNotification) {
-                                  FocusScope.of(context).requestFocus(FocusNode());
-                                  return true;
-                                }
-                                return false;
-                              },
-                            )
+                        child: RefreshIndicator(
+                            child: GiphyThumbnailGrid(
+                              key: Key('${snapshot.data.hashCode}'),
+                              repo: snapshot.data,
+                              scrollController: _scrollController,
+                              title: widget.title,
+                              actionsIconTheme:widget. actionsIconTheme,
+                              iconTheme: widget.iconTheme,
+                              brightness: widget.brightness,
+                            ),
+                            onRefresh: () =>
+                                _search(giphy, term: _textController.text)),
+                        onNotification: (n) {
+                          // hide keyboard when scrolling
+                          if (n is UserScrollNotification) {
+                            FocusScope.of(context).requestFocus(FocusNode());
+                            return true;
+                          }
+                          return false;
+                        },
+                      )
                           : Center(child: Text('No results'));
                     } else if (snapshot.hasError) {
                       return Center(child: Text('An error occurred'));
@@ -124,11 +127,11 @@ class _GiphySearchViewState extends State<GiphySearchView> {
                                     data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
                                     child: Padding(
                                       padding: const EdgeInsets.only(right: 8.0),
-                                      child: ExtendedTextField(
+                                      child: TextField(
                                         controller: _textController,
                                         decoration: InputDecoration.collapsed(
                                             hintText: giphy.searchText,
-                                          hintStyle: TextStyle(fontSize: 16)
+                                            hintStyle: TextStyle(fontSize: 16)
                                         ),
                                         onChanged: (value) => _delayedSearch(giphy, value),
                                       ),
