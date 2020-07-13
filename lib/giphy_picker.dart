@@ -25,7 +25,7 @@ class GiphyPicker {
     String lang = GiphyLanguage.english,
     ErrorListener onError,
     bool showPreviewPage = true,
-    String searchText = 'Search gifs',
+    String searchText = 'Search GIFs',
   }) async {
     GiphyGif result;
 

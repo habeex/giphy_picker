@@ -130,7 +130,7 @@ class _GiphySearchViewState extends State<GiphySearchView> {
                                       child: TextField(
                                         controller: _textController,
                                         decoration: InputDecoration.collapsed(
-                                            hintText: giphy.searchText,
+                                            hintText: 'Search GIFs',
                                             hintStyle: TextStyle(fontSize: 16)
                                         ),
                                         onChanged: (value) => _delayedSearch(giphy, value),
