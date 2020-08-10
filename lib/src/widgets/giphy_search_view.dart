@@ -42,7 +42,7 @@ class _GiphySearchViewState extends State<GiphySearchView> {
   @override
   Widget build(BuildContext context) {
     final giphy = GiphyContext.of(context);
-    var mediaQuery = MediaQuery.of(context).size;
+
     return ConstrainedBox(
       constraints: new BoxConstraints(
         minHeight: 450,
@@ -115,7 +115,6 @@ class _GiphySearchViewState extends State<GiphySearchView> {
                         padding: EdgeInsets.only(left: 16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30.0),
-                          color: Color(0xFFF0F0F0),
                         ),
                         child: Row(
                           children: [
