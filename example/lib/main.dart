@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
       title: 'Giphy Picker Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        brightness: Brightness.dark
       ),
       home: MyHomePage(),
     );

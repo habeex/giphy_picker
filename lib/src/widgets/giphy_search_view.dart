@@ -90,7 +90,6 @@ class _GiphySearchViewState extends State<GiphySearchView> {
         Container(
           height: null,
           padding: EdgeInsets.only(top: 3, left: 8, right: 8, bottom: MediaQuery.of(context).viewInsets.bottom),
-          color: Colors.white,
           child: Column(
             children: [
               Row(
